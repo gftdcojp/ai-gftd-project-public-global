@@ -1,0 +1,42 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: resource-collector-mcp-actors
+  namespace: ai-gftd-infra-k8s-actors
+  labels:
+    app: resource-collector-component
+spec:
+  parentRefs:
+    - name: ai-gftd-org-gftdcojp-gateway
+      namespace: ai-gftd-org-performers-z8k2m9n5
+      sectionName: https-actors
+  hostnames:
+    - "actors.gftd.ai"
+    - "*.actors.gftd.ai"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /rc8q4w2z/api/mcp
+        - path:
+            type: PathPrefix
+            value: /api/mcp
+      backendRefs:
+        - name: resource-collector-component
+          namespace: wasmcloud-system
+          port: 8001
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-resource-collector-route
+  namespace: wasmcloud-system
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: ai-gftd-infra-k8s-actors
+  to:
+    - group: ""
+      kind: Service
+      name: resource-collector-component

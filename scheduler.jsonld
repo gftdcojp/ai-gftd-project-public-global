@@ -4,7 +4,8 @@
     {
       "gftd": "https://gftd.ai/schemas/",
       "milestones": "gftd:milestones",
-      "blockers": "gftd:blockers"
+      "blockers": "gftd:blockers",
+      "scheduler": "gftd:scheduler"
     }
   ],
   "@type": "CreativeWork",
@@ -33,7 +34,51 @@
       "description": "Publish the static UI and route the main entrypoint.",
       "dueDate": "2026-02-19",
       "status": "Done"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Resource collector wasmCloud actor",
+      "description": "wasmCloud component that fetches global resource data from World Bank API, normalizes to JSON-LD, and publishes to gftdcojp/resources repo.",
+      "dueDate": "2026-02-20",
+      "status": "In Progress"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Scheduler-driven periodic collection",
+      "description": "Configure cron-based scheduler to trigger resource-collector-component every 6 hours.",
+      "dueDate": "2026-02-22",
+      "status": "Planned"
     }
   ],
+  "scheduler": {
+    "@type": "gftd:SchedulerConfig",
+    "automations": [
+      {
+        "name": "global-resource-collection",
+        "description": "Periodic collection of global resource data from World Bank API",
+        "cron": "0 */6 * * *",
+        "target_url": "https://actors.gftd.ai/rc8q4w2z/scheduler/trigger",
+        "method": "POST",
+        "enabled": true
+      },
+      {
+        "name": "global-resource-jsonld-export",
+        "description": "Export collected resources as JSON-LD after each collection run",
+        "cron": "30 */6 * * *",
+        "target_url": "https://actors.gftd.ai/rc8q4w2z/api/mcp",
+        "method": "POST",
+        "body": {
+          "jsonrpc": "2.0",
+          "id": "scheduled-export",
+          "method": "tools/call",
+          "params": {
+            "name": "collector.export_jsonld",
+            "arguments": {}
+          }
+        },
+        "enabled": true
+      }
+    ]
+  },
   "blockers": []
 }
