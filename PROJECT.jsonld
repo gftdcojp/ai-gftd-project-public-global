@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Project",
+  "name": "Global Resource Flow Intelligence Platform",
+  "identifier": "ai-gftd-project-global",
+  "status": "Active",
+  "description": "Global resource flow visualization platform. Aggregates worldwide resource statistics by year, infers time-series flows, and renders interactive 3D visualizations.",
+  "url": "https://global.gftd.ai",
+  "hasPart": [
+    { "@type": "WebApplication", "name": "Global Systems View", "url": "https://global.gftd.ai/systems" },
+    { "@type": "WebApplication", "name": "Resource Flow Visualization", "url": "https://global.gftd.ai/resource-flow" },
+    { "@type": "WebApplication", "name": "Resource Explorer", "url": "https://global.gftd.ai/resources" }
+  ],
+  "keywords": [
+    "resource-flow",
+    "systems-thinking",
+    "graph-theory",
+    "global-resources",
+    "mcp"
+  ]
+}

@@ -1,0 +1,31 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: global-mcp
+spec:
+  components:
+    - name: global-mcp-component
+      type: component
+      properties:
+        image: file://./build/global_mcp_component_s.wasm
+      traits:
+        - type: spreadscaler
+          properties:
+            replicas: 1
+    - name: grpc-provider
+      type: capability
+      properties:
+        image: ghcr.io/wasmcloud/grpc-provider:0.3.0
+      traits:
+        - type: link
+          properties:
+            target: global-mcp-component
+            namespace: wrpc
+            package: grpc
+            interfaces:
+              - server
+            source_config:
+              - name: grpc-server-config
+                properties:
+                  port: "8081"
+                  reflection: "true"

@@ -1,0 +1,39 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://gftd.ai/schemas/",
+      "milestones": "gftd:milestones",
+      "blockers": "gftd:blockers"
+    }
+  ],
+  "@type": "CreativeWork",
+  "name": "Global Resource Flow Intelligence Platform Scheduler",
+  "identifier": "ai-gftd-project-global/scheduler",
+  "description": "Project schedule (milestones) and blockers.",
+  "dateCreated": "2026-02-15T04:25:26+00:00",
+  "milestones": [
+    {
+      "@type": "CreativeWork",
+      "name": "Document MCP tool contract",
+      "description": "Write a stable tool list + args/results + curl examples for /api/mcp.",
+      "dueDate": "2026-02-16",
+      "status": "Done"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Deploy global-app and expose /api/mcp",
+      "description": "Ensure the service is reachable and /api/mcp responds on the public domain.",
+      "dueDate": "2026-02-19",
+      "status": "Done"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Deploy global-ui routes",
+      "description": "Publish the static UI and route the main entrypoint.",
+      "dueDate": "2026-02-19",
+      "status": "Done"
+    }
+  ],
+  "blockers": []
+}
